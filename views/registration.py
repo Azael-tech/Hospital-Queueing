@@ -52,9 +52,9 @@ def show():
                 "Priority Level *",
                 ["REGULAR", "URGENT", "EMERGENCY"],
                 help=(
-                    "🔴 EMERGENCY — Life-threatening, needs immediate attention\n\n"
-                    "🟡 URGENT — Serious but stable\n\n"
-                    "🟢 REGULAR — Routine / OPD visit"
+                    "EMERGENCY — Life-threatening, needs immediate attention\n\n"
+                    "URGENT — Serious but stable\n\n"
+                    "REGULAR — Routine / OPD visit"
                 ),
             )
 
