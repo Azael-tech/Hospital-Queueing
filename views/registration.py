@@ -9,7 +9,6 @@ import streamlit as st
 import datetime
 from database import register_patient, get_departments, init_db, PRIORITY_COLORS
 
-
 def show():
     init_db()
 
@@ -20,6 +19,7 @@ def show():
 
     with st.form("registration_form", clear_on_submit=True):
         st.subheader("Personal Information")
+
         col1, col2, col3 = st.columns([2, 1, 1])
         with col1:
             full_name = st.text_input("Full Name *", placeholder="e.g. Juan Dela Cruz")
@@ -31,6 +31,19 @@ def show():
         contact = st.text_input("Contact Number", placeholder="e.g. 09XX-XXX-XXXX")
 
         st.subheader("Medical Information")
+
+        chief_complaint = st.text_area(
+            "Chief Complaint *",
+            placeholder="Briefly describe the patient's main reason for visiting...",
+            max_chars=300,
+        )
+
+        notes = st.text_area(
+            "Additional Notes",
+            placeholder="Allergies, current medications, etc. (optional)",
+            max_chars=500,
+        )
+
         col4, col5 = st.columns(2)
         with col4:
             department = st.selectbox("Department *", departments)
@@ -45,58 +58,46 @@ def show():
                 ),
             )
 
-        chief_complaint = st.text_area(
-            "Chief Complaint *",
-            placeholder="Briefly describe the patient's main reason for visiting...",
-            max_chars=300,
-        )
-        notes = st.text_area(
-            "Additional Notes",
-            placeholder="Allergies, current medications, etc. (optional)",
-            max_chars=500,
-        )
-
         submitted = st.form_submit_button("➕ Register Patient", use_container_width=True)
 
-    if submitted:
-        # ── Validation ──────────────────────────────────────────────────────
-        errors = []
-        if not full_name.strip():
-            errors.append("Full name is required.")
-        if not chief_complaint.strip():
-            errors.append("Chief complaint is required.")
+        if submitted:
+            # ── Validation ──────────────────────────────────────────────────────
+            errors = []
+            if not full_name.strip():
+                errors.append("Full name is required.")
+            if not chief_complaint.strip():
+                errors.append("Chief complaint is required.")
 
-        if errors:
-            for err in errors:
-                st.error(err)
-        else:
-            patient = register_patient(
-                full_name=full_name.strip(),
-                age=int(age),
-                sex=sex,
-                contact=contact.strip(),
-                chief_complaint=chief_complaint.strip(),
-                priority=priority,
-                department=department,
-                notes=notes.strip(),
-            )
-
-            icon = PRIORITY_COLORS[priority]
-            st.success(f"Patient registered successfully!")
-            st.balloons()
-
-            # ── Confirmation card ────────────────────────────────────────────
-            with st.container(border=True):
-                st.markdown(f"### {icon} Ticket: `{patient['ticket_number']}`")
-                c1, c2, c3 = st.columns(3)
-                c1.metric("Patient Name", patient["full_name"])
-                c2.metric("Priority",     f"{icon} {patient['priority']}")
-                c3.metric("Department",   patient["department"])
-
-                st.caption(
-                    f"Registered at: {patient['registered_at']}  |  "
-                    f"Complaint: {patient['chief_complaint']}"
+            if errors:
+                for err in errors:
+                    st.error(err)
+            else:
+                patient = register_patient(
+                    full_name=full_name.strip(),
+                    age=int(age),
+                    sex=sex,
+                    contact=contact.strip(),
+                    chief_complaint=chief_complaint.strip(),
+                    priority=priority,
+                    department=department,
+                    notes=notes.strip(),
                 )
+
+                icon = PRIORITY_COLORS[priority]
+                st.success(f"Patient registered successfully!")
+                st.balloons()
+
+                # ── Confirmation card ────────────────────────────────────────────
+                with st.container(border=True):
+                    st.markdown(f"### {icon} Ticket: `{patient['ticket_number']}`")
+                    c1, c2, c3 = st.columns(3)
+                    c1.metric("Patient Name", patient["full_name"])
+                    c2.metric("Priority", f"{icon} {patient['priority']}")
+                    c3.metric("Department", patient["department"])
+                    st.caption(
+                        f"Registered at: {patient['registered_at']} | "
+                        f"Complaint: {patient['chief_complaint']}"
+                    )
 
     # ── Priority legend ──────────────────────────────────────────────────────
     st.divider()
