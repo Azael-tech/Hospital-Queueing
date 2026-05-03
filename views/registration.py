@@ -13,7 +13,7 @@ from database import register_patient, get_departments, init_db, PRIORITY_COLORS
 def show():
     init_db()
 
-    st.title("🏥 Patient Registration")
+    st.title(" Patient Registration")
     st.caption("Fill in the patient's details below to add them to the queue.")
 
     departments = get_departments()
