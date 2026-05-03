@@ -49,15 +49,15 @@ def show():
     # Next patient
     next_p = hq.peek()
     if next_p:
-        m4.metric("⏭ Next Ticket", next_p["ticket_number"])
+        m4.metric(" Next Ticket", next_p["ticket_number"])
     else:
-        m4.metric("⏭ Next Ticket", "—")
+        m4.metric(" Next Ticket", "—")
 
     st.divider()
 
     # ── In Progress ──────────────────────────────────────────────────────────
     if in_progress_patients:
-        st.subheader("⚡ Currently Being Served")
+        st.subheader(" Currently Being Served")
         for p in in_progress_patients:
             icon = PRIORITY_COLORS[p["priority"]]
             with st.container(border=True):
@@ -69,7 +69,7 @@ def show():
                 c4.caption(f"In progress: {elapsed}")
 
     # ── Waiting queue ────────────────────────────────────────────────────────
-    st.subheader("🟢 Waiting Queue")
+    st.subheader(" Waiting Queue")
 
     if not waiting_patients:
         st.info("No patients currently waiting. The queue is clear! 🎉")
