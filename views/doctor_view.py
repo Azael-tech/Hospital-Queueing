@@ -67,7 +67,7 @@ def show():
     next_p = get_next_patient()
 
     with st.container(border=True):
-        st.subheader("⏭ Next Patient in Queue")
+        st.subheader(" Next Patient in Queue")
         if next_p:
             icon = PRIORITY_COLORS[next_p["priority"]]
             st.markdown(
@@ -89,7 +89,7 @@ def show():
 
     # ── In Progress ──────────────────────────────────────────────────────────
     in_progress = get_queue(status_filter=[STATUS_IN_PROGRESS])
-    st.subheader(f"⚡ In Progress ({len(in_progress)})")
+    st.subheader(f" In Progress ({len(in_progress)})")
 
     if not in_progress:
         st.info("No patients currently in consultation.")
@@ -101,7 +101,7 @@ def show():
 
     # ── Full waiting list ────────────────────────────────────────────────────
     waiting = get_queue(status_filter=[STATUS_OPEN])
-    st.subheader(f"🟢 Waiting List ({len(waiting)})")
+    st.subheader(f" Waiting List ({len(waiting)})")
 
     if not waiting:
         st.info("The waiting queue is empty.")
