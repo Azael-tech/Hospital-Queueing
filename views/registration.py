@@ -105,13 +105,13 @@ def show():
     col_a, col_b, col_c = st.columns(3)
     with col_a:
         with st.container(border=True):
-            st.markdown("#### 🔴 EMERGENCY")
+            st.markdown("####  EMERGENCY")
             st.write("Cardiac arrest, stroke, severe trauma, unconsciousness, difficulty breathing.")
     with col_b:
         with st.container(border=True):
-            st.markdown("#### 🟡 URGENT")
+            st.markdown("####  URGENT")
             st.write("Severe conditions, and etc.")
     with col_c:
         with st.container(border=True):
-            st.markdown("#### 🟢 REGULAR")
+            st.markdown("####  REGULAR")
             st.write("Routine check-up, minor colds, prescription refill, follow-up consultations.")
