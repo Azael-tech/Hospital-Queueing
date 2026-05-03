@@ -109,7 +109,7 @@ def show():
     with col_b:
         with st.container(border=True):
             st.markdown("#### 🟡 URGENT")
-            st.write("High fever, moderate pain, fractures, persistent vomiting, worsening conditions.")
+            st.write("Severe conditions, and etc.")
     with col_c:
         with st.container(border=True):
             st.markdown("#### 🟢 REGULAR")
