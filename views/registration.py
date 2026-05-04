@@ -58,7 +58,7 @@ def show():
                 ),
             )
 
-        submitted = st.form_submit_button("➕ Register Patient", use_container_width=True)
+        submitted = st.form_submit_button(" Register Patient", use_container_width=True)
 
         if submitted:
             # ── Validation ──────────────────────────────────────────────────────
